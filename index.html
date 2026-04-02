@@ -335,9 +335,11 @@
     }
     document.getElementById("lockInput").addEventListener("keydown",function(e){if(e.key==="Enter")checkPassword();});
   })();
-  function checkPassword(){
+  const CORRECT_HASH = "c8fd219f17e06dac4b1977f8a2f343daa1a095b61bccd1ab71db7c98e435ced4";
+  async function sha256(m){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(m));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+  async function checkPassword(){
     var v=document.getElementById("lockInput").value;
-    if(v==="20260306"){
+    if(await sha256(v)===CORRECT_HASH){
       sessionStorage.setItem("manual_auth","ok");
       document.getElementById("lockOverlay").style.display="none";
     } else {
