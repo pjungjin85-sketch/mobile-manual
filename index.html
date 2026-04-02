@@ -93,16 +93,23 @@
     .empty-state { text-align: center; padding: 48px 20px; color: var(--light); font-size: 13px; }
 
     /* LOCK */
-    .lock-overlay { position: fixed; inset: 0; background: var(--bg2); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-    .lock-box { background: var(--bg); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 6px; padding: 40px 36px; width: 340px; box-shadow: var(--shadow-hover); text-align: center; }
-    .lock-logo { font-size: 18px; font-weight: 900; color: var(--black); margin-bottom: 6px; }
-    .lock-logo span { color: var(--red); }
-    .lock-title { font-size: 13px; color: var(--mid); margin-bottom: 24px; }
-    .lock-input { width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 4px; font-size: 15px; font-family: inherit; text-align: center; letter-spacing: .2em; outline: none; transition: border-color .15s; }
-    .lock-input:focus { border-color: var(--red); }
-    .lock-btn { width: 100%; margin-top: 12px; padding: 11px; background: var(--red); color: #fff; border: none; border-radius: 4px; font-size: 14px; font-weight: 700; font-family: inherit; cursor: pointer; transition: background .15s; }
-    .lock-btn:hover { background: var(--red2); }
+    .lock-overlay { position: fixed; inset: 0; background: var(--bg2); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .lock-box { background: var(--bg); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 16px; padding: 44px 40px 36px; width: 100%; max-width: 360px; box-shadow: 0 4px 32px rgba(0,0,0,0.08); text-align: center; }
+    .lock-icon { font-size: 48px; margin-bottom: 12px; display: block; animation: lock-pulse 2s ease-in-out infinite; }
+    @keyframes lock-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .lock-title { font-size: 20px; font-weight: 900; color: var(--black); margin-bottom: 4px; }
+    .lock-sub { font-size: 13px; color: var(--light); margin-bottom: 28px; }
+    .lock-input-wrap { position: relative; margin-bottom: 12px; }
+    .lock-input { width: 100%; padding: 14px 52px 14px 18px; border: 1.5px solid var(--red); border-radius: 10px; font-size: 16px; font-family: inherit; text-align: center; letter-spacing: .15em; outline: none; transition: border-color .15s; background: #fff; color: var(--black); }
+    .lock-input::placeholder { letter-spacing: .05em; font-size: 14px; color: #BBBBBB; }
+    .lock-input.error { animation: lock-shake 0.4s ease; }
+    @keyframes lock-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+    .lock-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; color: #BBBBBB; transition: color .15s; }
+    .lock-toggle:hover { color: var(--red); }
+    .lock-btn { width: 100%; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 800; font-family: inherit; cursor: pointer; transition: all .18s; }
+    .lock-btn:hover { background: var(--red2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(230,0,18,0.25); }
     .lock-error { margin-top: 10px; font-size: 12px; color: var(--red); min-height: 18px; }
+    .lock-footer { margin-top: 24px; color: #CCCCCC; font-size: 11px; line-height: 1.8; border-top: 1px solid #F0F0F0; padding-top: 16px; }
     footer { text-align: center; padding: 20px; color: var(--light); font-size: 11px; border-top: 1px solid var(--border); margin-top: 20px; }
   </style>
 </head>
@@ -110,11 +117,17 @@
 
 <div class="lock-overlay" id="lockOverlay">
   <div class="lock-box">
-    <div class="lock-logo">kt <span>skylife</span></div>
-    <div class="lock-title">전산 매뉴얼 — 비밀번호를 입력하세요</div>
-    <input type="password" class="lock-input" id="lockInput" placeholder="비밀번호" maxlength="20" autocomplete="off">
+    <span class="lock-icon">🔐</span>
+    <div class="lock-title">전산 매뉴얼</div>
+    <div class="lock-sub">접근 권한이 필요한 페이지입니다</div>
+    <div class="lock-input-wrap">
+      <input type="password" class="lock-input" id="lockInput" placeholder="비밀번호  입력" maxlength="20" autocomplete="off"
+             oninput="document.getElementById('lockError').textContent=''">
+      <button class="lock-toggle" id="lockToggle" onclick="(function(){var i=document.getElementById('lockInput');i.type=i.type==='password'?'text':'password';document.getElementById('lockToggle').textContent=i.type==='password'?'👁':'🙈';})()">👁</button>
+    </div>
     <button class="lock-btn" onclick="checkPassword()">확인</button>
     <div class="lock-error" id="lockError"></div>
+    <div class="lock-footer">2026 · 04월 영업정책 · 내부용<br>Created by 박정진</div>
   </div>
 </div>
 <header>
