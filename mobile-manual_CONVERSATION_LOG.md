@@ -100,6 +100,42 @@ git push
 
 ---
 
+## 세션 3 — 2026-04-02
+
+### 작업 내용
+
+#### Vercel 배포 전환
+- GitHub Pages → Vercel로 배포 방식 변경
+- `vercel.json` 추가 (no-cache 헤더 설정)
+- 최종 배포 URL: **https://mobile-manual.vercel.app/**
+- git push 시 자동 배포됨
+
+#### skylife-guide 아웃링크 추가
+- `https://skylife-guide-jyac.vercel.app/#` 페이지에 "전산 매뉴얼" 버튼 추가
+- FAQ 버튼 옆에 위치
+
+#### GitHub 저장소 이름 변경
+- `pjungjin85-sketch/skylife` → `pjungjin85-sketch/skylife-commission-calculator`
+- 로컬 remote URL도 함께 업데이트
+
+### 주의사항
+- Vercel에서 **Import 버튼 절대 누르지 말 것** — 누르면 새 프로젝트 생성되며 URL 변경됨
+- 반영 안 될 때는 Vercel 대시보드에서 배포 상태 확인 후 `Cmd+Shift+R` 강력 새로고침
+- INP 경고는 개발자 도구(F12)에서만 보이는 것 — 일반 사용자에게 노출 안 됨
+- skylife-guide 최종 URL: `https://skylife-guide-jyac.vercel.app/#` (vz8q는 구버전)
+
+---
+
+## 세션 4 — 2026-04-05
+
+### 헤더 디자인 통일 (skylife-guide 기준)
+
+- `index.html`: `kt skylife` 로고 + `MOBILE` 배지 + `전산 매뉴얼` 제목 구조로 변경, `.header-title` CSS 추가
+- `detail.html`: `MOBILE` 배지 추가, `.header-badge` CSS 추가
+- 커밋: `d82b310`
+
+---
+
 ## 미완성 / 향후 작업
 
 - [ ] 반응형 디자인 (모바일 최적화) — 현재 PC 전용
